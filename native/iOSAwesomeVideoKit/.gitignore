@@ -1,0 +1,4 @@
+ExportSDK/
+FFmpeg/
+AwesomeVideoKitSDK.xcframework
+build/

@@ -1,0 +1,681 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D7B23B062F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23AFE2F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework */; };
+		D7B23B072F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23AFE2F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D7B23B802F64070D00EBFBD5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23B7F2F64070D00EBFBD5 /* CoreFoundation.framework */; };
+		D7B23E922F6D332A00EBFBD5 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23E912F6D332A00EBFBD5 /* VideoToolbox.framework */; };
+		D7B23E942F6D336B00EBFBD5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23E932F6D336B00EBFBD5 /* CoreMedia.framework */; };
+		D7B23E9A2F6D35F400EBFBD5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B23E992F6D35F400EBFBD5 /* CoreVideo.framework */; };
+		E127446B2F6ED2F800765CCF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E127446A2F6ED2ED00765CCF /* libz.tbd */; };
+		E1F000012F80000100765CCF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F000022F80000100765CCF /* AudioToolbox.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D7B23B042F63FEF900EBFBD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D7B23A9C2F63FEA900EBFBD5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D7B23AFD2F63FEF900EBFBD5;
+			remoteInfo = AwesomeVideoKitSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D7B23B082F63FEF900EBFBD5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D7B23B072F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D7B23AA42F63FEA900EBFBD5 /* iOSAwesomeVideoKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAwesomeVideoKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7B23AFE2F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AwesomeVideoKitSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7B23B7F2F64070D00EBFBD5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		D7B23E912F6D332A00EBFBD5 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		D7B23E932F6D336B00EBFBD5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D7B23E952F6D337700EBFBD5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D7B23E972F6D33A900EBFBD5 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		D7B23E992F6D35F400EBFBD5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		E127446A2F6ED2ED00765CCF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		E1F000022F80000100765CCF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D7B23ABB2F63FEAA00EBFBD5 /* Exceptions for "iOSAwesomeVideoKit" folder in "iOSAwesomeVideoKit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D7B23AA32F63FEA900EBFBD5 /* iOSAwesomeVideoKit */;
+		};
+		D7B23B0C2F63FEF900EBFBD5 /* Exceptions for "AwesomeVideoKitSDK" folder in "AwesomeVideoKitSDK" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			publicHeaders = (
+				AwesomeAVFileInfo.h,
+				AwesomeVideoKitManager.h,
+				AwesomeVideoKitSDK.h,
+				AwesomeVideoDownloadManager.h,
+				AwesomeVideoFileManager.h,
+				AwesomeVideoFrameCaptureManager.h,
+				AwesomeVideoTranscoderManager.h,
+			);
+			target = D7B23AFD2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D7B23AA62F63FEA900EBFBD5 /* iOSAwesomeVideoKit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D7B23ABB2F63FEAA00EBFBD5 /* Exceptions for "iOSAwesomeVideoKit" folder in "iOSAwesomeVideoKit" target */,
+			);
+			path = iOSAwesomeVideoKit;
+			sourceTree = "<group>";
+		};
+		D7B23AFF2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D7B23B0C2F63FEF900EBFBD5 /* Exceptions for "AwesomeVideoKitSDK" folder in "AwesomeVideoKitSDK" target */,
+			);
+			path = AwesomeVideoKitSDK;
+			sourceTree = "<group>";
+		};
+		E1F000102F80001000765CCF /* ffmpeg_tools */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ../shared/ffmpeg_tools;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D7B23AA12F63FEA900EBFBD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7B23B062F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7B23AFB2F63FEF900EBFBD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7B23B802F64070D00EBFBD5 /* CoreFoundation.framework in Frameworks */,
+				D7B23E942F6D336B00EBFBD5 /* CoreMedia.framework in Frameworks */,
+				E1F000012F80000100765CCF /* AudioToolbox.framework in Frameworks */,
+				D7B23E922F6D332A00EBFBD5 /* VideoToolbox.framework in Frameworks */,
+				E127446B2F6ED2F800765CCF /* libz.tbd in Frameworks */,
+				D7B23E9A2F6D35F400EBFBD5 /* CoreVideo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D7B23A9B2F63FEA900EBFBD5 = {
+			isa = PBXGroup;
+			children = (
+				D7B23AA62F63FEA900EBFBD5 /* iOSAwesomeVideoKit */,
+				D7B23AFF2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */,
+				D7B23B552F6406B700EBFBD5 /* Frameworks */,
+				D7B23AA52F63FEA900EBFBD5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D7B23AA52F63FEA900EBFBD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7B23AA42F63FEA900EBFBD5 /* iOSAwesomeVideoKit.app */,
+				D7B23AFE2F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7B23B552F6406B700EBFBD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E127446A2F6ED2ED00765CCF /* libz.tbd */,
+				D7B23E992F6D35F400EBFBD5 /* CoreVideo.framework */,
+				D7B23E972F6D33A900EBFBD5 /* Metal.framework */,
+				D7B23E952F6D337700EBFBD5 /* AVFoundation.framework */,
+				E1F000022F80000100765CCF /* AudioToolbox.framework */,
+				D7B23E932F6D336B00EBFBD5 /* CoreMedia.framework */,
+				D7B23E912F6D332A00EBFBD5 /* VideoToolbox.framework */,
+				D7B23B7F2F64070D00EBFBD5 /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D7B23AF92F63FEF900EBFBD5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D7B23AA32F63FEA900EBFBD5 /* iOSAwesomeVideoKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7B23ABC2F63FEAA00EBFBD5 /* Build configuration list for PBXNativeTarget "iOSAwesomeVideoKit" */;
+			buildPhases = (
+				D7B23AA02F63FEA900EBFBD5 /* Sources */,
+				D7B23AA12F63FEA900EBFBD5 /* Frameworks */,
+				D7B23AA22F63FEA900EBFBD5 /* Resources */,
+				D7B23B082F63FEF900EBFBD5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D7B23B052F63FEF900EBFBD5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D7B23AA62F63FEA900EBFBD5 /* iOSAwesomeVideoKit */,
+			);
+			name = iOSAwesomeVideoKit;
+			packageProductDependencies = (
+			);
+			productName = iOSAwesomeVideoKit;
+			productReference = D7B23AA42F63FEA900EBFBD5 /* iOSAwesomeVideoKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D7B23AFD2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7B23B0B2F63FEF900EBFBD5 /* Build configuration list for PBXNativeTarget "AwesomeVideoKitSDK" */;
+			buildPhases = (
+				D7B23AF92F63FEF900EBFBD5 /* Headers */,
+				D7B23AFA2F63FEF900EBFBD5 /* Sources */,
+				D7B23AFB2F63FEF900EBFBD5 /* Frameworks */,
+				D7B23AFC2F63FEF900EBFBD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D7B23AFF2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */,
+				E1F000102F80001000765CCF /* ffmpeg_tools */,
+			);
+			name = AwesomeVideoKitSDK;
+			packageProductDependencies = (
+			);
+			productName = AwesomeVideoKitSDK;
+			productReference = D7B23AFE2F63FEF900EBFBD5 /* AwesomeVideoKitSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D7B23A9C2F63FEA900EBFBD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					D7B23AA32F63FEA900EBFBD5 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					D7B23AFD2F63FEF900EBFBD5 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = D7B23A9F2F63FEA900EBFBD5 /* Build configuration list for PBXProject "iOSAwesomeVideoKit" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D7B23A9B2F63FEA900EBFBD5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D7B23AA52F63FEA900EBFBD5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D7B23AA32F63FEA900EBFBD5 /* iOSAwesomeVideoKit */,
+				D7B23AFD2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D7B23AA22F63FEA900EBFBD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7B23AFC2F63FEF900EBFBD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D7B23AA02F63FEA900EBFBD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7B23AFA2F63FEF900EBFBD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D7B23B052F63FEF900EBFBD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D7B23AFD2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */;
+			targetProxy = D7B23B042F63FEF900EBFBD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D7B23ABD2F63FEAA00EBFBD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9K4772H24M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOSAwesomeVideoKit/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gosh.live;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "gosh-live-dev";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D7B23ABE2F63FEAA00EBFBD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9K4772H24M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOSAwesomeVideoKit/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gosh.live;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "gosh-live-dev";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D7B23ABF2F63FEAA00EBFBD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D7B23AC02F63FEAA00EBFBD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D7B23B092F63FEF900EBFBD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../shared/ffmpeg_tools",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64/include",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64-simulator/include",
+				);
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64-simulator/lib",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-liconv",
+					"-lavfilter",
+					"-lavformat",
+					"-lavcodec",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"-lx264",
+					"-lmbedtls",
+					"-lmbedx509",
+					"-lmbedcrypto",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"-lx264",
+					"-lmbedtls",
+					"-lmbedx509",
+					"-lmbedcrypto",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goshlive.awesomevideokit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D7B23B0A2F63FEF900EBFBD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../shared/ffmpeg_tools",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64/include",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64-simulator/include",
+				);
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FFmpeg/ios-arm64-simulator/lib",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-liconv",
+					"-lavfilter",
+					"-lavformat",
+					"-lavcodec",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"-lx264",
+					"-lmbedtls",
+					"-lmbedx509",
+					"-lmbedcrypto",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"-lx264",
+					"-lmbedtls",
+					"-lmbedx509",
+					"-lmbedcrypto",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goshlive.awesomevideokit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D7B23A9F2F63FEA900EBFBD5 /* Build configuration list for PBXProject "iOSAwesomeVideoKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7B23ABF2F63FEAA00EBFBD5 /* Debug */,
+				D7B23AC02F63FEAA00EBFBD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7B23ABC2F63FEAA00EBFBD5 /* Build configuration list for PBXNativeTarget "iOSAwesomeVideoKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7B23ABD2F63FEAA00EBFBD5 /* Debug */,
+				D7B23ABE2F63FEAA00EBFBD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7B23B0B2F63FEF900EBFBD5 /* Build configuration list for PBXNativeTarget "AwesomeVideoKitSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7B23B092F63FEF900EBFBD5 /* Debug */,
+				D7B23B0A2F63FEF900EBFBD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D7B23A9C2F63FEA900EBFBD5 /* Project object */;
+}

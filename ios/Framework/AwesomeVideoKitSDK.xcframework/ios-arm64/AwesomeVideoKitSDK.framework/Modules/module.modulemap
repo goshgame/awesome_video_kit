@@ -1,0 +1,6 @@
+framework module AwesomeVideoKitSDK {
+  umbrella header "AwesomeVideoKitSDK.h"
+  export *
+
+  module * { export * }
+}

@@ -1,0 +1,10 @@
+# Third-party source checkouts fetched by scripts.
+/FFmpeg-n6.1.1/
+/x264/
+/mbedtls/
+
+# Build and install outputs.
+/build/
+
+# Local macOS metadata.
+.DS_Store
