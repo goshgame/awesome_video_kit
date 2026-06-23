@@ -66,11 +66,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
 				AwesomeAVFileInfo.h,
-				AwesomeVideoKitManager.h,
-				AwesomeVideoKitSDK.h,
 				AwesomeVideoDownloadManager.h,
 				AwesomeVideoFileManager.h,
 				AwesomeVideoFrameCaptureManager.h,
+				AwesomeVideoKitManager.h,
+				AwesomeVideoKitSDK.h,
 				AwesomeVideoTranscoderManager.h,
 			);
 			target = D7B23AFD2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */;
@@ -94,7 +94,7 @@
 			path = AwesomeVideoKitSDK;
 			sourceTree = "<group>";
 		};
-		E1F000102F80001000765CCF /* ffmpeg_tools */ = {
+		E1F000102F80001000765CCF /* ../shared/ffmpeg_tools */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ../shared/ffmpeg_tools;
 			sourceTree = SOURCE_ROOT;
@@ -133,6 +133,7 @@
 				D7B23AFF2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */,
 				D7B23B552F6406B700EBFBD5 /* Frameworks */,
 				D7B23AA52F63FEA900EBFBD5 /* Products */,
+				D7B977AF2FDC134300EAB661 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,6 +159,14 @@
 				D7B23B7F2F64070D00EBFBD5 /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7B977AF2FDC134300EAB661 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				E1F000102F80001000765CCF /* ../shared/ffmpeg_tools */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +221,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D7B23AFF2F63FEF900EBFBD5 /* AwesomeVideoKitSDK */,
-				E1F000102F80001000765CCF /* ffmpeg_tools */,
+				E1F000102F80001000765CCF /* ../shared/ffmpeg_tools */,
 			);
 			name = AwesomeVideoKitSDK;
 			packageProductDependencies = (

@@ -256,9 +256,9 @@ class AwesomeVideoKit {
     );
   }
 
-  /// 读取本地媒体文件信息。
+  /// 读取本地或网络媒体资源信息。
   ///
-  /// 支持音频、视频、图片文件，返回值中包含基础信息以及音视频流级别信息。
+  /// 支持音频、视频、图片资源，返回值中包含基础信息以及音视频流级别信息。
   static Future<MediaInfo?> getMediaInfo({required String filePath}) {
     try {
       return _platform.getMediaInfo(filePath: filePath);

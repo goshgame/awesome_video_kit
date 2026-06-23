@@ -1,6 +1,7 @@
 #include "ffmpeg_av_file_info.h"
 
 #include "ffmpeg_common_utils.h"
+#include "ffmpeg_hls_network.h"
 
 #include <cmath>
 
@@ -142,6 +143,36 @@ bool formatNameLooksLikeImage(const AVInputFormat *input_format) {
         strstr(name, "jpeg_pipe") ||
         strstr(name, "webp_pipe") ||
         strstr(name, "gif");
+}
+
+bool schemeEqualsCi(const char *scheme, size_t scheme_length, const char *expected) {
+    if (!scheme || !expected) return false;
+    if (scheme_length != strlen(expected)) return false;
+
+    for (size_t index = 0; index < scheme_length; ++index) {
+        if (tolower(static_cast<unsigned char>(scheme[index])) !=
+            tolower(static_cast<unsigned char>(expected[index]))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isNetworkUrl(const char *path) {
+    if (!path || !*path) return false;
+
+    const char *scheme_end = strchr(path, ':');
+    if (!scheme_end || scheme_end == path) return false;
+
+    const size_t scheme_length = static_cast<size_t>(scheme_end - path);
+    return schemeEqualsCi(path, scheme_length, "http") ||
+        schemeEqualsCi(path, scheme_length, "https") ||
+        schemeEqualsCi(path, scheme_length, "rtmp") ||
+        schemeEqualsCi(path, scheme_length, "rtmps") ||
+        schemeEqualsCi(path, scheme_length, "rtsp") ||
+        schemeEqualsCi(path, scheme_length, "tcp") ||
+        schemeEqualsCi(path, scheme_length, "udp") ||
+        schemeEqualsCi(path, scheme_length, "tls");
 }
 
 uint16_t readLe16(const uint8_t *data) {
@@ -348,6 +379,165 @@ bool probeHeifOrAvif(FILE *file, FFmpegAVFileInfo::VideoStreamInfo *info) {
     return false;
 }
 
+bool probePngBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 33 || !info) return false;
+    const uint8_t signature[] = {0x89, 'P', 'N', 'G', '\r', '\n', 0x1a, '\n'};
+    if (memcmp(data, signature, sizeof(signature)) != 0 || memcmp(data + 12, "IHDR", 4) != 0) return false;
+
+    info->dimension.width = static_cast<int>(readBe32(data + 16));
+    info->dimension.height = static_cast<int>(readBe32(data + 20));
+    info->component_bit_count = data[24];
+    setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypePNG, "png");
+    return info->dimension.width > 0 && info->dimension.height > 0;
+}
+
+bool probeJpegBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 4 || !info) return false;
+    if (data[0] != 0xff || data[1] != 0xd8) return false;
+
+    size_t offset = 2;
+    while (offset + 4 <= size) {
+        while (offset < size && data[offset] != 0xff) ++offset;
+        while (offset < size && data[offset] == 0xff) ++offset;
+        if (offset >= size) return false;
+
+        const uint8_t code = data[offset++];
+        if (code == 0xd9 || code == 0xda) return false;
+        if (offset + 2 > size) return false;
+
+        const uint16_t segment_length = readBe16(data + offset);
+        offset += 2;
+        if (segment_length < 2) return false;
+        const size_t payload_length = static_cast<size_t>(segment_length - 2);
+        if (offset + payload_length > size) return false;
+
+        const bool is_sof =
+            (code >= 0xc0 && code <= 0xc3) ||
+            (code >= 0xc5 && code <= 0xc7) ||
+            (code >= 0xc9 && code <= 0xcb) ||
+            (code >= 0xcd && code <= 0xcf);
+        if (is_sof) {
+            if (payload_length < 5) return false;
+            info->component_bit_count = data[offset];
+            info->dimension.height = readBe16(data + offset + 1);
+            info->dimension.width = readBe16(data + offset + 3);
+            setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypeMJPEG, "mjpeg");
+            return info->dimension.width > 0 && info->dimension.height > 0;
+        }
+
+        offset += payload_length;
+    }
+    return false;
+}
+
+bool probeGifBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 10 || !info) return false;
+    if (memcmp(data, "GIF87a", 6) != 0 && memcmp(data, "GIF89a", 6) != 0) return false;
+
+    info->dimension.width = readLe16(data + 6);
+    info->dimension.height = readLe16(data + 8);
+    info->component_bit_count = 8;
+    setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypeOther, "gif");
+    return info->dimension.width > 0 && info->dimension.height > 0;
+}
+
+bool probeBmpBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 30 || !info) return false;
+    if (data[0] != 'B' || data[1] != 'M') return false;
+
+    const uint32_t dib_header_size = readLe32(data + 14);
+    if (dib_header_size < 16) return false;
+
+    int width = 0;
+    int height = 0;
+    if (dib_header_size == 16) {
+        width = readLe16(data + 18);
+        height = readLe16(data + 20);
+    } else {
+        width = static_cast<int>(readLe32(data + 18));
+        height = std::abs(static_cast<int>(readLe32(data + 22)));
+    }
+
+    info->dimension.width = width;
+    info->dimension.height = height;
+    info->component_bit_count = readLe16(data + 28);
+    setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypeOther, "bmp");
+    return info->dimension.width > 0 && info->dimension.height > 0;
+}
+
+bool probeWebpBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 30 || !info) return false;
+    if (memcmp(data, "RIFF", 4) != 0 || memcmp(data + 8, "WEBP", 4) != 0) return false;
+
+    if (memcmp(data + 12, "VP8X", 4) == 0) {
+        info->dimension.width = static_cast<int>(readLe24(data + 24) + 1);
+        info->dimension.height = static_cast<int>(readLe24(data + 27) + 1);
+    } else if (memcmp(data + 12, "VP8L", 4) == 0 && size >= 25 && data[20] == 0x2f) {
+        const uint32_t bits = readLe32(data + 21);
+        info->dimension.width = static_cast<int>((bits & 0x3fff) + 1);
+        info->dimension.height = static_cast<int>(((bits >> 14) & 0x3fff) + 1);
+    } else if (memcmp(data + 12, "VP8 ", 4) == 0) {
+        if (size < 30) return false;
+        const uint8_t *frame_header = data + 20;
+        if (frame_header[3] != 0x9d || frame_header[4] != 0x01 || frame_header[5] != 0x2a) return false;
+        info->dimension.width = readLe16(frame_header + 6) & 0x3fff;
+        info->dimension.height = readLe16(frame_header + 8) & 0x3fff;
+    } else {
+        return false;
+    }
+
+    info->component_bit_count = 8;
+    setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypeOther, "webp");
+    return info->dimension.width > 0 && info->dimension.height > 0;
+}
+
+bool probeHeifOrAvifBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size < 32 || !info) return false;
+    if (memcmp(data + 4, "ftyp", 4) != 0) return false;
+
+    bool is_heif = heifBrandMatches(data + 8);
+    bool is_avif = avifBrandMatches(data + 8);
+    for (size_t offset = 16; offset + 4 <= 32; offset += 4) {
+        is_heif = is_heif || heifBrandMatches(data + offset);
+        is_avif = is_avif || avifBrandMatches(data + offset);
+    }
+    if (!is_heif && !is_avif) return false;
+
+    for (size_t offset = 4; offset + 16 <= size; ++offset) {
+        if (memcmp(data + offset, "ispe", 4) != 0) continue;
+
+        const uint32_t box_size = readBe32(data + offset - 4);
+        if (box_size < 20 || offset + 16 > size) continue;
+
+        const uint32_t width = readBe32(data + offset + 8);
+        const uint32_t height = readBe32(data + offset + 12);
+        if (width == 0 || height == 0 || width > INT_MAX || height > INT_MAX) continue;
+
+        info->dimension.width = static_cast<int>(width);
+        info->dimension.height = static_cast<int>(height);
+        info->component_bit_count = 8;
+        setImageCodecInfo(info, FFmpegAVFileInfo::VideoCodecTypeOther, is_avif ? "avif" : "heif");
+        return true;
+    }
+    return false;
+}
+
+bool probeImageHeaderBytes(const uint8_t *data, size_t size, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!data || size == 0 || !info) return false;
+
+    FFmpegAVFileInfo::VideoStreamInfo image_info;
+    const bool ok =
+        probePngBytes(data, size, &image_info) ||
+        probeJpegBytes(data, size, &image_info) ||
+        probeGifBytes(data, size, &image_info) ||
+        probeWebpBytes(data, size, &image_info) ||
+        probeBmpBytes(data, size, &image_info) ||
+        probeHeifOrAvifBytes(data, size, &image_info);
+    if (!ok) return false;
+    *info = image_info;
+    return true;
+}
+
 bool probeImageHeader(const char *file_path, FFmpegAVFileInfo::VideoStreamInfo *info) {
     if (!file_path || !file_path[0] || !info) return false;
 
@@ -367,6 +557,44 @@ bool probeImageHeader(const char *file_path, FFmpegAVFileInfo::VideoStreamInfo *
     if (!ok) return false;
     *info = image_info;
     return true;
+}
+
+bool probeNetworkImageHeader(const char *url, FFmpegAVFileInfo::VideoStreamInfo *info) {
+    if (!url || !url[0] || !info) return false;
+
+    AVIOContext *io_context = nullptr;
+    AVDictionary *options = nullptr;
+    FFmpegHlsNetworkUtils::setCommonNetworkOptions(&options);
+
+    const int open_ret = avio_open2(&io_context, url, AVIO_FLAG_READ, nullptr, &options);
+    av_dict_free(&options);
+    if (open_ret < 0) return false;
+
+    constexpr size_t kMaxNetworkImageProbeSize = 1024 * 1024;
+    constexpr size_t kReadChunkSize = 16 * 1024;
+    std::vector<uint8_t> buffer;
+    buffer.reserve(kReadChunkSize);
+
+    uint8_t chunk[kReadChunkSize];
+    while (buffer.size() < kMaxNetworkImageProbeSize) {
+        const size_t remaining = kMaxNetworkImageProbeSize - buffer.size();
+        const int read_size = static_cast<int>(remaining < kReadChunkSize ? remaining : kReadChunkSize);
+        const int bytes_read = avio_read(io_context, chunk, read_size);
+        if (bytes_read == 0 || bytes_read == AVERROR_EOF) break;
+        if (bytes_read < 0) {
+            avio_closep(&io_context);
+            return false;
+        }
+        buffer.insert(buffer.end(), chunk, chunk + bytes_read);
+
+        if (probeImageHeaderBytes(buffer.data(), buffer.size(), info)) {
+            avio_closep(&io_context);
+            return true;
+        }
+    }
+
+    avio_closep(&io_context);
+    return probeImageHeaderBytes(buffer.data(), buffer.size(), info);
 }
 
 bool formatContextLooksLikeImage(AVFormatContext *format_context) {
@@ -394,15 +622,31 @@ bool formatContextLooksLikeImage(AVFormatContext *format_context) {
         (formatNameLooksLikeImage(format_context->iformat) || isStillImageCodec(first_video_codec_id));
 }
 
-int openInputWithImageFallback(AVFormatContext **format_context, const char *file_path) {
-    int ret = avformat_open_input(format_context, file_path, nullptr, nullptr);
+int openInputWithOptions(
+    AVFormatContext **format_context,
+    const char *file_path,
+    const AVInputFormat *input_format,
+    bool network_input
+) {
+    AVDictionary *options = nullptr;
+    if (network_input) {
+        FFmpegHlsNetworkUtils::setCommonNetworkOptions(&options);
+    }
+
+    const int ret = avformat_open_input(format_context, file_path, input_format, &options);
+    av_dict_free(&options);
+    return ret;
+}
+
+int openInputWithImageFallback(AVFormatContext **format_context, const char *file_path, bool network_input) {
+    int ret = openInputWithOptions(format_context, file_path, nullptr, network_input);
     if (ret >= 0) return ret;
 
     const AVInputFormat *image_input_format = av_find_input_format("image2");
     if (!image_input_format) return ret;
 
     AVFormatContext *image_format_context = nullptr;
-    const int image_ret = avformat_open_input(&image_format_context, file_path, image_input_format, nullptr);
+    const int image_ret = openInputWithOptions(&image_format_context, file_path, image_input_format, network_input);
     if (image_ret < 0) return ret;
 
     *format_context = image_format_context;
@@ -618,14 +862,21 @@ void FFmpegAVFileInfo::clear() {
 int FFmpegAVFileInfo::loadFromFile(const char *file_path) {
     AVFormatContext *format_context = nullptr;
     VideoStreamInfo image_header_info;
-    const bool has_image_header_info = probeImageHeader(file_path, &image_header_info);
     AVCodecID first_video_codec_id = AV_CODEC_ID_NONE;
     int ret = 0;
 
     clear();
     if (!file_path || !file_path[0]) return AVERROR(EINVAL);
 
-    ret = openInputWithImageFallback(&format_context, file_path);
+    const bool network_input = isNetworkUrl(file_path);
+    if (network_input) {
+        avformat_network_init();
+    }
+    const bool has_image_header_info = network_input
+        ? probeNetworkImageHeader(file_path, &image_header_info)
+        : probeImageHeader(file_path, &image_header_info);
+
+    ret = openInputWithImageFallback(&format_context, file_path, network_input);
     if (ret < 0) {
         if (has_image_header_info) {
             source_path_ = file_path;

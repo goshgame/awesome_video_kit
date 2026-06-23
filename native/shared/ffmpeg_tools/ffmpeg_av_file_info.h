@@ -9,7 +9,7 @@
 #include <vector>
 
 // 资源基础信息探测类。
-// 负责使用 FFmpeg 读取本地资源的容器/流信息，并以稳定的 C++ 结构对外提供查询能力。
+// 负责使用 FFmpeg 读取本地或网络资源的容器/流信息，并以稳定的 C++ 结构对外提供查询能力。
 class FFmpegAVFileInfo {
 public:
     enum FileType {
@@ -115,8 +115,8 @@ public:
     // 清空当前已加载的资源信息，恢复到初始状态。
     void clear();
     /**
-     * 从本地文件加载容器和流信息。
-     * @param file_path 本地资源路径
+     * 从本地路径或网络 URL 加载容器和流信息。
+     * @param file_path 本地资源路径或网络 URL
      * @return 0 成功，负数为 FFmpeg 错误码；失败时对象会被清空
      */
     int loadFromFile(const char *file_path);

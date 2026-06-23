@@ -38,9 +38,8 @@ NSError *awesome_av_file_info_error(AwesomeAVFileInfoErrorCode code, NSString *m
     return [NSError errorWithDomain:AwesomeAVFileInfoErrorDomain code:code userInfo:userInfo];
 }
 
-NSString *awesome_av_file_info_normalize_path(NSString *filePath) {
-    return [[[filePath ?: @"" stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet]
-        stringByExpandingTildeInPath] copy];
+NSString *awesome_av_file_info_normalize_input(NSString *filePath) {
+    return [[filePath ?: @"" stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] copy];
 }
 
 AwesomeSize awesome_av_file_info_make_size(const FFmpegAVFileInfo::Size &size) {
@@ -77,8 +76,8 @@ AwesomeRational awesome_av_file_info_make_rational(const FFmpegAVFileInfo::Ratio
 }
 
 - (BOOL)loadFromFile:(NSString *)filePath error:(NSError * _Nullable __autoreleasing *)error {
-    NSString *normalizedPath = awesome_av_file_info_normalize_path(filePath);
-    if (normalizedPath.length == 0) {
+    NSString *normalizedInput = awesome_av_file_info_normalize_input(filePath);
+    if (normalizedInput.length == 0) {
         if (error) {
             *error = awesome_av_file_info_error(
                 AwesomeAVFileInfoErrorInvalidArguments,
@@ -89,19 +88,19 @@ AwesomeRational awesome_av_file_info_make_rational(const FFmpegAVFileInfo::Ratio
         return NO;
     }
 
-    const char *filePathC = normalizedPath.fileSystemRepresentation;
-    if (!filePathC || !filePathC[0]) {
+    const char *inputC = normalizedInput.UTF8String;
+    if (!inputC || !inputC[0]) {
         if (error) {
             *error = awesome_av_file_info_error(
                 AwesomeAVFileInfoErrorInvalidArguments,
-                @"Failed to convert filePath to file system representation.",
+                @"Failed to convert filePath to UTF-8.",
                 nil
             );
         }
         return NO;
     }
 
-    const int ret = _impl->loadFromFile(filePathC);
+    const int ret = _impl->loadFromFile(inputC);
     if (ret < 0) {
         if (error) {
             NSString *message = [NSString stringWithFormat:@"Failed to load media info: %@.", awesome_av_file_info_ffmpeg_error_string(ret)];
