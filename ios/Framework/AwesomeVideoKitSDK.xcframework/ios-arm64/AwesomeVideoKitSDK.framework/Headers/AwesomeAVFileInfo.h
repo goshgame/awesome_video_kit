@@ -119,17 +119,17 @@ typedef NS_ENUM(NSInteger, AwesomeVideoHDRType) {
     AwesomeVideoHDRTypeDolbyVision,
 };
 
-/// 本地媒体文件信息读取器。
-/// 使用 FFmpeg 探测音频、视频或图片文件的基础信息以及流级别元数据。
+/// 媒体资源信息读取器。
+/// 使用 FFmpeg 探测本地或网络音频、视频、图片资源的基础信息以及流级别元数据。
 @interface AwesomeAVFileInfo : NSObject
 
-/// 创建实例并立即加载指定文件。
+/// 创建实例并立即加载指定本地路径或网络 URL。
 + (nullable instancetype)infoWithFilePath:(NSString *)filePath error:(NSError * _Nullable * _Nullable)error;
 /// 创建一个空实例，需后续手动调用 `loadFromFile:error:`。
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
-/// 创建实例并立即加载指定文件。
+/// 创建实例并立即加载指定本地路径或网络 URL。
 - (nullable instancetype)initWithFilePath:(NSString *)filePath error:(NSError * _Nullable * _Nullable)error;
-/// 加载或重新加载指定文件的媒体信息。
+/// 加载或重新加载指定本地路径或网络 URL 的媒体信息。
 - (BOOL)loadFromFile:(NSString *)filePath error:(NSError * _Nullable * _Nullable)error;
 
 /// 当前文件类型。
