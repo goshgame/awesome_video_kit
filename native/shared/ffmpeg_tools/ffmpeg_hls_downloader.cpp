@@ -76,6 +76,33 @@ void rescalePacketTs(AVPacket *packet, AVRational source_time_base, AVRational d
     av_packet_rescale_ts(packet, source_time_base, destination_time_base);
 }
 
+int writeAudioPacket(AVFormatContext *output_format, AVPacket *packet, int64_t *last_written_dts) {
+    // HLS segment boundaries can repeat or slightly regress audio timestamps.
+    // Correct in the muxer's time base, including packets drained from the BSF.
+    if (packet->dts != AV_NOPTS_VALUE &&
+        *last_written_dts != AV_NOPTS_VALUE &&
+        packet->dts <= *last_written_dts) {
+        if (*last_written_dts == INT64_MAX) return AVERROR_INVALIDDATA;
+        const int64_t next_dts = *last_written_dts + 1;
+        AWESOME_FF_LOGW(
+            "Correcting non-monotonic audio DTS on stream %d: %" PRId64 " -> %" PRId64,
+            packet->stream_index, packet->dts, next_dts
+        );
+        packet->dts = next_dts;
+        if (packet->pts != AV_NOPTS_VALUE && packet->pts < next_dts) {
+            packet->pts = next_dts;
+        }
+    }
+
+    // av_interleaved_write_frame takes ownership and clears the packet.
+    const int64_t written_dts = packet->dts;
+    const int ret = av_interleaved_write_frame(output_format, packet);
+    if (ret >= 0 && written_dts != AV_NOPTS_VALUE) {
+        *last_written_dts = written_dts;
+    }
+    return ret;
+}
+
 // 选择不超过 720p 的最佳视频流，没有则退回最高分辨率流。
 int selectVideoStreamMax720pOrHighest(AVFormatContext *input_format) {
     int best_index = -1;
@@ -151,6 +178,7 @@ int FFmpegHlsDownloader::download() {
     int video_output_index = -1;
     int audio_output_index = -1;
     int64_t duration_us = 0;
+    int64_t last_audio_written_dts = AV_NOPTS_VALUE;
 
     AVStream *video_input_stream = nullptr;
     AVStream *audio_input_stream = nullptr;
@@ -287,7 +315,7 @@ int FFmpegHlsDownloader::download() {
                     rescalePacketTs(&packet, audio_bsf.get()->time_base_out, output_stream->time_base);
                     packet.pos = -1;
 
-                    const int write_ret = av_interleaved_write_frame(output_format, &packet);
+                    const int write_ret = writeAudioPacket(output_format, &packet, &last_audio_written_dts);
                     av_packet_unref(&packet);
                     if (write_ret < 0) {
                         FFmpegCommonUtils::printError("Error writing audio frame", write_ret);
@@ -310,7 +338,7 @@ int FFmpegHlsDownloader::download() {
             }
             packet.pos = -1;
 
-            ret = av_interleaved_write_frame(output_format, &packet);
+            ret = writeAudioPacket(output_format, &packet, &last_audio_written_dts);
             av_packet_unref(&packet);
             if (ret < 0) {
                 FFmpegCommonUtils::printError("Error writing audio frame", ret);
@@ -341,7 +369,7 @@ int FFmpegHlsDownloader::download() {
                     rescalePacketTs(&packet, audio_bsf.get()->time_base_out, output_stream->time_base);
                     packet.pos = -1;
 
-                    ret = av_interleaved_write_frame(output_format, &packet);
+                    ret = writeAudioPacket(output_format, &packet, &last_audio_written_dts);
                     av_packet_unref(&packet);
                     if (ret < 0) goto end;
                 }
